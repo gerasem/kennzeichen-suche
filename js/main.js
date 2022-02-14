@@ -5,6 +5,8 @@ const app = new Vue({
         regions: regions,
     },
 
+    maxInputLength: 3,
+
     computed: {
         getRegionName() {
             return this.regions.filter(item => item.abr === this.input.toUpperCase());
@@ -12,19 +14,7 @@ const app = new Vue({
     },
 
     created() {
-        let uri = window.location.href.split('?');
-        if (uri.length === 2) {
-            let vars = uri[1].split('&');
-            let getVars = {};
-            let tmp = "";
-            vars.forEach(v => {
-                tmp = v.split('=');
-                if (tmp.length === 2) {
-                    getVars[tmp[0]] = tmp[1];
-                }
-            });
-            this.input = tmp[1];
-        }
+        this.getInputFromUrlGetParameter();
     },
 
     mounted() {
@@ -43,6 +33,14 @@ const app = new Vue({
 
         getBundeslandIcon(bundesland) {
             return "img/" + bundesland + ".png";
+        },
+
+        getInputFromUrlGetParameter() {
+            const windowData = Object.fromEntries(new URL(window.location).searchParams.entries());
+            if (!windowData) return;
+            if (!windowData.s) return;
+            if (windowData.s.length > this.$options.maxInputLength) return;
+            this.input = windowData.s;
         }
     }
 })
