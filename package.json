@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "deploy": "gh-pages -d ."
+  },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "less": "^4.5.1",
     "less-plugin-clean-css": "^1.6.0"
   }
