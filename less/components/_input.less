@@ -1,0 +1,125 @@
+.input {
+  &__icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80px;
+    height: 80px;
+    margin: 20px 10px;
+
+    img {
+      width: 100%;
+    }
+
+    @media (max-width: @screen-xs-max) {
+      width: 60px;
+      height: 60px;
+      margin: 30px 10px;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__field {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #e2e0e0;
+    transition: @transition-time;
+    font-family: @font-primary;
+    position: relative;
+
+    input {
+      box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+      text-align: center;
+      font-size: 100px;
+      text-transform: uppercase;
+      font-weight: bold;
+      line-height: 100px;
+      color: @color-primary;
+      border: none;
+      outline: none;
+      background-color: @color-background;
+      width: 100%;
+      padding: 10px 90px 10px 10px;
+      height: 120px;
+
+      &::placeholder {
+        color: #e4e4e4;
+      }
+
+      &:focus {
+        transform: scale(1.05);
+        outline: none;
+        border: 1px solid #c8c8c8;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .25);
+      }
+
+      @media (max-width: @screen-xs-max) {
+        font-size: 80px;
+      }
+    }
+
+  }
+
+  &__icon-close-container {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+    background-color: @color-background;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      .input__icon-close--one {
+        transform: rotate(135deg);
+      }
+
+      .input__icon-close--two {
+        transform: rotate(-135deg);
+      }
+    }
+  }
+
+  &__icon-close {
+    width: 35px;
+    height: 4px;
+    background-color: @color-secondary;
+    display: block;
+    position: absolute;
+    transition: @transition-time / 2;
+
+    &--one {
+      transform: rotate(45deg);
+    }
+
+    &--two {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__subtext {
+    font-size: 14.5px;
+    margin-top: 20px;
+    color: @color-secondary;
+    text-align: center;
+
+    span {
+      font-weight: bold;
+      font-style: italic;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
