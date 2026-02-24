@@ -1,3 +1,10 @@
 less/app.css
 *.css
 *.map
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# OS files
+.DS_Store

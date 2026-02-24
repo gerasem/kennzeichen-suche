@@ -1,99 +1,89 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <title>Kfz-Kennzeichen Suche</title>
     <link rel="stylesheet" href="less/app.css">
-    <meta name="description" content="Kfz-Kennzeichen Suche nach dem Bundesland"/>
+    <meta name="description" content="Kfz-Kennzeichen Suche nach dem Bundesland" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
     <meta name=”robots” content=”nofollow”>
 </head>
+
 <body>
 
-<div id="app" class="app">
-    <h1>Kfz-Kennzeichen Suche</h1>
-    <!-- input-->
-    <div class="input__container">
-        <div class="input__field">
-            <input
-                    id="input"
-                    type="text"
-                    :maxlength="$options.maxInputLength"
-                    v-model="input"
-                    placeholder="abc"
-                    autocapitalize="none"
-                    autocorrect="false"
-                    ref="input"
-                    spellcheck="false"/>
+    <div id="app" class="app">
+        <h1>Kfz-Kennzeichen Suche</h1>
+        <!-- input-->
+        <div class="input__container">
+            <div class="input__field">
+                <input id="input" type="text" :maxlength="$options.maxInputLength" v-model="input" placeholder="abc"
+                    autocapitalize="none" autocorrect="false" ref="input" spellcheck="false" />
 
-            <div class="input__icon" v-cloak>
-                <div class="input__icon-close-container" v-show="input" @click="handleClearInput()">
-                    <span class="input__icon-close input__icon-close--one"></span>
-                    <span class="input__icon-close input__icon-close--two"></span>
-                </div>
-                <img class="input__icon-search" src="img/search.svg" alt="Suchen nach dem Kennzeichen">
-            </div>
-        </div>
-
-        <div v-if="!input"
-             class="input__subtext">
-            Schreiben Sie die ersten Buchstaben vom Kennzeichen, z.B
-            <span @click="input='BGL'">BGL</span>
-        </div>
-    </div>
-    <!-- input end -->
-    <!-- result -->
-    <div class="result" v-if="input">
-        <div v-cloak>
-            <h2 class="result__title">{{ input }}</h2>
-            <div v-for="item in getRegionName" :key="item.name">
-                <div class="result__row">
-                    <div class="result__table-title">Stadt/Landkreis</div>
-                    <div class="result__separator"></div>
-                    <div class="result__table-value">
-                        {{ item.kreis }}
-                        <small v-if="checkException(item.kreis)">
-                            * Ausnahmen bei B, F, G, I, O und Q
-                        </small>
+                <div class="input__icon" v-cloak>
+                    <div class="input__icon-close-container" v-show="input" @click="handleClearInput()">
+                        <span class="input__icon-close input__icon-close--one"></span>
+                        <span class="input__icon-close input__icon-close--two"></span>
                     </div>
+                    <img class="input__icon-search" src="img/search.svg" alt="Suchen nach dem Kennzeichen">
                 </div>
-
-                <div class="result__row">
-                    <div class="result__table-title">Bundesland</div>
-                    <div class="result__separator"></div>
-                    <div class="result__table-value">
-                        <img class="result__icon" :src="getBundeslandIcon(item.bundesland)" :alt="item.bundesland">
-                        {{ item.bundesland }}
-                    </div>
-                </div>
-
-                <div class="result__row result__row--small">
-                    <div class="result__table-title">Abgeteilt von</div>
-                    <div class="result__separator"></div>
-                    <div class="result__table-value result__table-value--small">{{ item.kurz }}</div>
-                </div>
-
             </div>
-            <div class="result__empty"
-                 v-if="!getRegionName.length">
-                Leider gibt es für Ihre Suchanfrage keine Treffer :(
+
+            <div v-if="!input" class="input__subtext">
+                Schreiben Sie die ersten Buchstaben vom Kennzeichen, z.B
+                <span @click="input='BGL'">BGL</span>
             </div>
         </div>
+        <!-- input end -->
+        <!-- result -->
+        <div class="result" v-if="input">
+            <div v-cloak>
+                <h2 class="result__title">{{ input }}</h2>
+                <div v-for="item in getRegionName" :key="item.name">
+                    <div class="result__row">
+                        <div class="result__table-title">Stadt/Landkreis</div>
+                        <div class="result__separator"></div>
+                        <div class="result__table-value">
+                            {{ item.kreis }}
+                            <small v-if="checkException(item.kreis)">
+                                * Ausnahmen bei B, F, G, I, O und Q
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="result__row">
+                        <div class="result__table-title">Bundesland</div>
+                        <div class="result__separator"></div>
+                        <div class="result__table-value">
+                            <img class="result__icon" :src="getBundeslandIcon(item.bundesland)" :alt="item.bundesland">
+                            {{ item.bundesland }}
+                        </div>
+                    </div>
+
+                    <div class="result__row result__row--small">
+                        <div class="result__table-title">Abgeteilt von</div>
+                        <div class="result__separator"></div>
+                        <div class="result__table-value result__table-value--small">{{ item.kurz }}</div>
+                    </div>
+
+                </div>
+                <div class="result__empty" v-if="!getRegionName.length">
+                    Leider gibt es für Ihre Suchanfrage keine Treffer :(
+                </div>
+            </div>
+        </div>
+        <!-- result end -->
+
     </div>
-    <!-- result end -->
+    <footer>
+        &copy; 2020 Kfz-Kennzeichen Suche<br>
+    </footer>
+    <script src="js/vue.js"></script>
+    <script src="js/regions.js"></script>
+    <script src="js/main.js"></script>
 
-</div>
-<footer>
-    &copy; 2020 Kfz-Kennzeichen Suche<br>
-    <a href="impressum.html">Impressum</a>
-    <a href="datenschutz.html">Datenschutzerklärung</a>
-</footer>
-<script src="js/vue.js"></script>
-<script src="js/regions.js"></script>
-<script src="js/main.js"></script>
-
-<script type="application/ld+json">
+    <script type="application/ld+json">
     {
         "@context": "https://schema.org/",
         "@type": "WebSite",
@@ -107,4 +97,5 @@
     }
 </script>
 </body>
+
 </html>
